@@ -1,0 +1,504 @@
+{
+    "schema": "vae-diagwerk-health-report/1",
+    "guide": "https://raw.githubusercontent.com/vandelayautollc/diagwerk-health-report/main/GUIDE.md",
+    "about": "Health report of a BMW car (an F-series BMW, MINI or Rolls-Royce), read from its control modules over the diagnostic port: each module's fault memory (active and stored faults, with the snapshot records the module saved when a fault occurred), the FSC feature activations in force, and the factory option codes of its vehicle order. Values are text, with their units.",
+    "app": "VAE Diagwerk for BMW-ENET v0.1.1 (demo)",
+    "readAt": "2026-11-11T18:17:44Z",
+    "vehicle": {
+        "title": "2017 F30",
+        "details": [
+            {
+                "label": "Model series",
+                "value": "F30",
+                "note": "Type code 8B73"
+            },
+            {
+                "label": "Year",
+                "value": "2017",
+                "note": "Mar 2017"
+            },
+            {
+                "label": "Software level",
+                "value": "F020-19-11-520"
+            },
+            {
+                "label": "VIN",
+                "value": "WBA8B7C50HK000042"
+            }
+        ]
+    },
+    "summary": {
+        "activeFaults": 1,
+        "storedFaults": 3,
+        "modules": 13,
+        "modulesNotRead": 0
+    },
+    "modules": [
+        {
+            "name": "ACSM",
+            "controlUnit": "ACSM4 @ 0x01",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00000908",
+                    "version": "003.006.002"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "FEM",
+            "controlUnit": "ZGW_01 @ 0x10",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "0000079D",
+                    "version": "004.010.050"
+                },
+                {
+                    "part": "SWFL",
+                    "id": "0000079E",
+                    "version": "004.019.002"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "DME",
+            "controlUnit": "DME8FF_R @ 0x12",
+            "status": "2 stored",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00003076",
+                    "version": "090.060.006"
+                }
+            ],
+            "values": [
+                {
+                    "label": "FSC entitlements",
+                    "value": "None active"
+                }
+            ],
+            "faults": [
+                {
+                    "code": "1F0549",
+                    "description": "Check Control message (ID 2064): engine oil service due",
+                    "status": "stored",
+                    "occurred": "131,204 km · 2× occurrences",
+                    "details": {
+                        "Occurrences": "2",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "21A80C",
+                    "status": "stored",
+                    "occurred": "118,655 km · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "LMV",
+            "controlUnit": "LMV_01 @ 0x19",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00001D8A",
+                    "version": "007.003.000"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "ICM",
+            "controlUnit": "ICM_25 @ 0x1C",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00001E75",
+                    "version": "003.014.010"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "DSC",
+            "controlUnit": "DSC_25 @ 0x29",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "000010EB",
+                    "version": "006.014.006"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "EPS",
+            "controlUnit": "EPS_TK02 @ 0x30",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "000019EF",
+                    "version": "004.020.003"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "FEM-B",
+            "controlUnit": "FEM_20 @ 0x40",
+            "status": "1 stored",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00001557",
+                    "version": "011.062.002"
+                },
+                {
+                    "part": "SWFL",
+                    "id": "00001263",
+                    "version": "001.003.000"
+                }
+            ],
+            "values": [],
+            "faults": [
+                {
+                    "code": "8041A2",
+                    "description": "Output NSW_L, short circuit",
+                    "status": "stored",
+                    "occurred": "127,919 km · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "FZD",
+            "controlUnit": "FZD_20 @ 0x56",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00000A02",
+                    "version": "004.016.001"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "KOMBI",
+            "controlUnit": "KOMB25 @ 0x60",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00000E4F",
+                    "version": "007.077.020"
+                },
+                {
+                    "part": "SWFL",
+                    "id": "00000B62",
+                    "version": "005.002.001"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "HU",
+            "controlUnit": "NBTEVO @ 0x63",
+            "status": "1 active",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00002718",
+                    "version": "007.051.002"
+                },
+                {
+                    "part": "SWFL",
+                    "id": "00002719",
+                    "version": "007.051.002"
+                }
+            ],
+            "values": [],
+            "fscEntitlements": [
+                {
+                    "swid": "0x00A0",
+                    "name": "Professional navigation system (US version/Economic Commission for Europe)",
+                    "detail": "Classic (full) · upgrade 1"
+                },
+                {
+                    "swid": "0x0121",
+                    "name": "Road map of North America EVO",
+                    "detail": "Classic (full) · upgrade 2"
+                },
+                {
+                    "swid": "0x009C",
+                    "name": "BMW Apps",
+                    "detail": "Classic (full) · upgrade 1"
+                },
+                {
+                    "swid": "0x016E",
+                    "name": "Speech processing",
+                    "detail": "Classic (full) · upgrade 1"
+                },
+                {
+                    "swid": "0x0143",
+                    "name": "Apple CarPlay",
+                    "detail": "Classic (full) · upgrade 1"
+                }
+            ],
+            "faults": [
+                {
+                    "code": "B7F8A7",
+                    "status": "active",
+                    "occurred": "134,600 km · 3× occurrences",
+                    "details": {
+                        "Occurrences": "3",
+                        "Healing counter": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "REM",
+            "controlUnit": "REM_20 @ 0x72",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "00000F4B",
+                    "version": "011.062.002"
+                }
+            ],
+            "values": [],
+            "faults": []
+        },
+        {
+            "name": "IHKA",
+            "controlUnit": "IHX_I1 @ 0x78",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "software": [
+                {
+                    "part": "SWFL",
+                    "id": "000029D5",
+                    "version": "004.033.001"
+                }
+            ],
+            "values": [],
+            "faults": []
+        }
+    ],
+    "options": [
+        {
+            "code": "1CA",
+            "description": "Selection of COP relevant vehicles"
+        },
+        {
+            "code": "205",
+            "description": "Steptronic transmission"
+        },
+        {
+            "code": "216",
+            "description": "Servotronic"
+        },
+        {
+            "code": "230",
+            "description": "EU-specific additional contents"
+        },
+        {
+            "code": "248",
+            "description": "Steering-wheel heating"
+        },
+        {
+            "code": "249",
+            "description": "Multifunction for steering wheel"
+        },
+        {
+            "code": "255",
+            "description": "Sport leather steering wheel"
+        },
+        {
+            "code": "2NH",
+            "description": "M Sport brake"
+        },
+        {
+            "code": "2VB",
+            "description": "Tire pressure monitor"
+        },
+        {
+            "code": "302",
+            "description": "Alarm system"
+        },
+        {
+            "code": "319",
+            "description": "Integrated universal remote control"
+        },
+        {
+            "code": "322",
+            "description": "Comfort access system"
+        },
+        {
+            "code": "430",
+            "description": "Interior and exterior mirror package"
+        },
+        {
+            "code": "431",
+            "description": "Interior rear-view mirror with automatic anti-dazzle function"
+        },
+        {
+            "code": "459",
+            "description": "Seat adjustment, electric, with memory"
+        },
+        {
+            "code": "488",
+            "description": "Lumbar support for driver and front passenger"
+        },
+        {
+            "code": "493",
+            "description": "Storage compartment package"
+        },
+        {
+            "code": "494",
+            "description": "Heated seats for driver and front passenger"
+        },
+        {
+            "code": "4GQ",
+            "description": "M seat belts"
+        },
+        {
+            "code": "502",
+            "description": "Headlight washer system"
+        },
+        {
+            "code": "521",
+            "description": "Rain sensor"
+        },
+        {
+            "code": "534",
+            "description": "Automatic air conditioning"
+        },
+        {
+            "code": "544",
+            "description": "Cruise control with braking function"
+        },
+        {
+            "code": "575",
+            "description": "Additional 12 V power socket"
+        },
+        {
+            "code": "5A2",
+            "description": "LED headlights"
+        },
+        {
+            "code": "5AC",
+            "description": "High-beam assistant"
+        },
+        {
+            "code": "5DC",
+            "description": "Rear-seat headrests, folding"
+        },
+        {
+            "code": "609",
+            "description": "Navigation system Professional"
+        },
+        {
+            "code": "688",
+            "description": "Harman Kardon surround sound system"
+        },
+        {
+            "code": "6AC",
+            "description": "Intelligent Emergency Call"
+        },
+        {
+            "code": "6AE",
+            "description": "Teleservices"
+        },
+        {
+            "code": "6AK",
+            "description": "ConnectedDrive Services"
+        },
+        {
+            "code": "6NW",
+            "description": "Telephony with wireless charging"
+        },
+        {
+            "code": "6WB",
+            "description": "Multifunctional instrument display"
+        },
+        {
+            "code": "704",
+            "description": "M Sport suspension"
+        },
+        {
+            "code": "710",
+            "description": "M Leather steering wheel"
+        },
+        {
+            "code": "775",
+            "description": "M headliner anthracite"
+        },
+        {
+            "code": "7LG",
+            "description": "Guidance package"
+        },
+        {
+            "code": "845",
+            "description": "Acoustic seat-belt warning"
+        },
+        {
+            "code": "853",
+            "description": "Language version English"
+        },
+        {
+            "code": "8KA",
+            "description": "Oil service interval - 24 months/30,000 km"
+        },
+        {
+            "code": "8TF",
+            "description": "Active pedestrians safety"
+        },
+        {
+            "code": "925",
+            "description": "Shipping protection package"
+        }
+    ],
+    "notes": [
+        "Read with VAE Diagwerk for BMW-ENET v0.1.1 (demo) on Nov 11, 2026, 1:17 PM.",
+        "Values are as the vehicle's control modules reported them when read, as interpreted by VAE's own analysis of BMW's diagnostic data. VAE doesn't guarantee they are complete or accurate. This report is not a substitute for an inspection by a qualified technician."
+    ]
+}

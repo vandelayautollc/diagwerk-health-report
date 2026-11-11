@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "VAE Diagwerk health report, version 1",
-  "description": "The health report VAE Diagwerk for Motorrad exports as JSON. GUIDE.md in this repository says how to read it. Unknown keys are allowed everywhere: later app versions may add some without changing the version.",
+  "description": "The health report the VAE Diagwerk apps (for Motorrad; for BMW-ENET, F-series cars) export as JSON. GUIDE.md in this repository says how to read it. Unknown keys are allowed everywhere: later app versions may add some without changing the version.",
   "type": "object",
   "required": ["schema", "about", "app", "vehicle", "summary", "modules", "notes"],
   "properties": {
@@ -20,7 +20,7 @@
     "app": {
       "description": "The app and version that made the report. Ends in \" (demo)\" for the app's simulated vehicle.",
       "type": "string",
-      "examples": ["VAE Diagwerk for Motorrad v0.4.3"]
+      "examples": ["VAE Diagwerk for Motorrad v0.4.3", "VAE Diagwerk for BMW-ENET v0.1.1"]
     },
     "readAt": {
       "description": "When the vehicle was read: ISO 8601, UTC, to the second.",
@@ -34,19 +34,19 @@
         "title": {
           "description": "The vehicle's short name.",
           "type": "string",
-          "examples": ["2019 R 1250 GS"]
+          "examples": ["2019 R 1250 GS", "2017 F30"]
         },
         "details": {
-          "description": "Model, Year, Odometer and VIN. A value the app could not learn reads \"Unknown\".",
+          "description": "Motorrad: Model, Year, Odometer and VIN. Cars: Model series, Year, Software level and VIN. A value the app could not learn reads \"Unknown\".",
           "type": "array",
           "items": {
             "type": "object",
             "required": ["label", "value"],
             "properties": {
-              "label": { "type": "string", "examples": ["Model", "Year", "Odometer", "VIN"] },
+              "label": { "type": "string", "examples": ["Model", "Year", "Odometer", "VIN", "Model series", "Software level"] },
               "value": { "type": "string" },
               "note": {
-                "description": "Beside Model, the type key and series code (\"0J93 · K50\"); beside Year, the production month.",
+                "description": "Beside Model, the type key and series code (\"0J93 · K50\"); beside Model series, the type code (\"Type code 8B73\"); beside Year, the production month.",
                 "type": "string"
               }
             }
@@ -80,12 +80,12 @@
         "type": "object",
         "required": ["code"],
         "properties": {
-          "code": { "description": "BMW option code.", "type": "string", "examples": ["193"] },
+          "code": { "description": "BMW option code.", "type": "string", "examples": ["193", "2VB"] },
           "description": { "description": "Left out when the app has no name for the code.", "type": "string" },
           "listedBy": {
             "description": "On an option only some modules' copies of the vehicle order list: which.",
             "type": "string",
-            "examples": ["Instrument cluster only"]
+            "examples": ["Instrument cluster only", "DME only"]
           }
         }
       }
@@ -101,11 +101,11 @@
       "type": "object",
       "required": ["name", "controlUnit", "status", "faultMemoryRead", "values"],
       "properties": {
-        "name": { "description": "What the module does.", "type": "string", "examples": ["Engine", "ABS"] },
+        "name": { "description": "Motorrad: what the module does. Cars: BMW's short name for the module.", "type": "string", "examples": ["Engine", "ABS", "DME", "KOMBI"] },
         "controlUnit": {
           "description": "BMW's name for the module variant and its diagnostic address.",
           "type": "string",
-          "examples": ["X_BMS-O @ 0x12"]
+          "examples": ["X_BMS-O @ 0x12", "DME8FF_R @ 0x12"]
         },
         "status": {
           "description": "The module's fault count as text.",
@@ -117,6 +117,19 @@
           "type": "boolean"
         },
         "note": { "description": "Why the fault memory was not read.", "type": "string" },
+        "software": {
+          "description": "Cars: the module's software parts as its software list (SVK) reports them. Left out when it reported none.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["part", "id", "version"],
+            "properties": {
+              "part": { "description": "BMW's process class of the part.", "type": "string", "examples": ["SWFL"] },
+              "id": { "description": "The part's SGBM number: eight hex digits.", "type": "string", "pattern": "^[0-9A-F]{8}$" },
+              "version": { "description": "main.sub.patch, three digits each.", "type": "string", "pattern": "^\\d{3}\\.\\d{3}\\.\\d{3}$" }
+            }
+          }
+        },
         "values": {
           "description": "Other things the module keeps.",
           "type": "array",
