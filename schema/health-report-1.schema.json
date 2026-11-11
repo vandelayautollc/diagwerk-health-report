@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VAE Diagwerk health report, version 1",
+  "description": "The health report VAE Diagwerk for Motorrad exports as JSON. GUIDE.md in this repository says how to read it. Unknown keys are allowed everywhere: later app versions may add some without changing the version.",
+  "type": "object",
+  "required": ["schema", "about", "app", "vehicle", "summary", "modules", "notes"],
+  "properties": {
+    "schema": {
+      "description": "Names the layout. The number goes up when a key is removed or changes its meaning.",
+      "const": "vae-diagwerk-health-report/1"
+    },
+    "guide": {
+      "description": "The address of the guide to this file.",
+      "type": "string"
+    },
+    "about": {
+      "description": "One sentence on what the file is.",
+      "type": "string"
+    },
+    "app": {
+      "description": "The app and version that made the report. Ends in \" (demo)\" for the app's simulated vehicle.",
+      "type": "string",
+      "examples": ["VAE Diagwerk for Motorrad v0.4.3"]
+    },
+    "readAt": {
+      "description": "When the vehicle was read: ISO 8601, UTC, to the second.",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+    },
+    "vehicle": {
+      "type": "object",
+      "required": ["title", "details"],
+      "properties": {
+        "title": {
+          "description": "The vehicle's short name.",
+          "type": "string",
+          "examples": ["2019 R 1250 GS"]
+        },
+        "details": {
+          "description": "Model, Year, Odometer and VIN. A value the app could not learn reads \"Unknown\".",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string", "examples": ["Model", "Year", "Odometer", "VIN"] },
+              "value": { "type": "string" },
+              "note": {
+                "description": "Beside Model, the type key and series code (\"0J93 · K50\"); beside Year, the production month.",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "description": "Counts over the whole report.",
+      "type": "object",
+      "required": ["activeFaults", "storedFaults", "modules", "modulesNotRead"],
+      "properties": {
+        "activeFaults": { "type": "integer", "minimum": 0 },
+        "storedFaults": { "type": "integer", "minimum": 0 },
+        "modules": { "description": "How many modules the report lists.", "type": "integer", "minimum": 0 },
+        "modulesNotRead": {
+          "description": "How many of them have faultMemoryRead false. Not 0: the fault counts are incomplete.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/module" }
+    },
+    "options": {
+      "description": "The vehicle order's option codes. Left out when the vehicle order was not read.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code"],
+        "properties": {
+          "code": { "description": "BMW option code.", "type": "string", "examples": ["193"] },
+          "description": { "description": "Left out when the app has no name for the code.", "type": "string" },
+          "listedBy": {
+            "description": "On an option only some modules' copies of the vehicle order list: which.",
+            "type": "string",
+            "examples": ["Instrument cluster only"]
+          }
+        }
+      }
+    },
+    "notes": {
+      "description": "The report's footnotes, as sentences.",
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "required": ["name", "controlUnit", "status", "faultMemoryRead", "values"],
+      "properties": {
+        "name": { "description": "What the module does.", "type": "string", "examples": ["Engine", "ABS"] },
+        "controlUnit": {
+          "description": "BMW's name for the module variant and its diagnostic address.",
+          "type": "string",
+          "examples": ["X_BMS-O @ 0x12"]
+        },
+        "status": {
+          "description": "The module's fault count as text.",
+          "type": "string",
+          "examples": ["2 active · 3 stored", "No faults", "Not read"]
+        },
+        "faultMemoryRead": {
+          "description": "False: the module's faults are unknown (see note), and there is no faults key.",
+          "type": "boolean"
+        },
+        "note": { "description": "Why the fault memory was not read.", "type": "string" },
+        "values": {
+          "description": "Other things the module keeps.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string", "examples": ["Odometer stored", "VIN", "Next service in"] },
+              "value": { "description": "Display text with its unit.", "type": "string" },
+              "flag": { "description": "\"Differs\" on a module VIN that is not the vehicle's.", "type": "string" },
+              "usageStatistic": {
+                "description": "Present and true on a value that says how the vehicle was ridden.",
+                "const": true
+              }
+            }
+          }
+        },
+        "fscEntitlements": {
+          "description": "The enabling codes (FSC) in force in this module. Left out when there are none.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["swid", "detail"],
+            "properties": {
+              "swid": { "description": "The feature's software ID.", "type": "string", "examples": ["0x018F"] },
+              "name": { "description": "BMW's name for the feature. Left out when unknown.", "type": "string" },
+              "detail": { "description": "Certificate type and upgrade level.", "type": "string" }
+            }
+          }
+        },
+        "faults": {
+          "description": "Present, possibly empty, only when faultMemoryRead is true.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/fault" }
+        }
+      },
+      "if": { "properties": { "faultMemoryRead": { "const": true } } },
+      "then": { "required": ["faults"] },
+      "else": { "properties": { "faults": false } }
+    },
+    "fault": {
+      "type": "object",
+      "required": ["code", "status"],
+      "properties": {
+        "code": { "description": "BMW fault code: six hex digits.", "type": "string", "pattern": "^[0-9A-F]{6}$" },
+        "description": { "description": "Left out when the app has no text for the code.", "type": "string" },
+        "status": { "enum": ["active", "stored"] },
+        "area": {
+          "description": "The function group and, for a network fault, the sender of the missing message.",
+          "type": "string",
+          "examples": ["CAN bus · Sensor box"]
+        },
+        "occurred": {
+          "description": "One line: OBD code, mileage (or first–latest), occurrence count; each when known.",
+          "type": "string",
+          "examples": ["P0078 · 42,996 mi · 27× occurrences"]
+        },
+        "details": {
+          "description": "The fault's counters by name: OBD code, Occurrences, Healing counter, Fault class, Warning light.",
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "snapshots": {
+          "description": "The records the module saved when the fault occurred. Left out when there are none in the report.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["record", "readings"],
+            "properties": {
+              "record": {
+                "description": "Which record, and its mileage.",
+                "type": "string",
+                "examples": ["First occurrence · 37,755 mi"]
+              },
+              "readings": {
+                "description": "Reading name to its value when the record was saved.",
+                "type": "object",
+                "additionalProperties": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

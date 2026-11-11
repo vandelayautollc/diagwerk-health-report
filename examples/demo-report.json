@@ -1,0 +1,744 @@
+{
+    "schema": "vae-diagwerk-health-report/1",
+    "guide": "https://raw.githubusercontent.com/vandelayautollc/diagwerk-health-report/main/GUIDE.md",
+    "about": "Health report of a BMW Motorrad vehicle, read from its control modules over the diagnostic port: each module's fault memory (active and stored faults, with the snapshot records the module saved when a fault occurred) and other values the modules keep. Values are text, with their units.",
+    "app": "VAE Diagwerk for Motorrad v0.4.3 (demo)",
+    "readAt": "2026-11-11T13:36:14Z",
+    "vehicle": {
+        "title": "2019 R 1250 GS",
+        "details": [
+            {
+                "label": "Model",
+                "value": "R 1250 GS",
+                "note": "0J93 · K50"
+            },
+            {
+                "label": "Year",
+                "value": "2019",
+                "note": "May 2019"
+            },
+            {
+                "label": "Odometer",
+                "value": "42,509 mi"
+            },
+            {
+                "label": "VIN",
+                "value": "WB10J9302KZH99940"
+            }
+        ]
+    },
+    "summary": {
+        "activeFaults": 11,
+        "storedFaults": 5,
+        "modules": 7,
+        "modulesNotRead": 1
+    },
+    "modules": [
+        {
+            "name": "Engine",
+            "controlUnit": "X_BMS-O @ 0x12",
+            "status": "2 active · 3 stored",
+            "faultMemoryRead": true,
+            "values": [
+                {
+                    "label": "Odometer stored",
+                    "value": "42,509 mi"
+                },
+                {
+                    "label": "VIN",
+                    "value": "WB10J9302KZH99940"
+                },
+                {
+                    "label": "Next service in",
+                    "value": "6,214 mi"
+                },
+                {
+                    "label": "Next service due",
+                    "value": "Oct 10, 2027"
+                },
+                {
+                    "label": "Highest engine speed",
+                    "value": "9,612 rpm",
+                    "usageStatistic": true
+                },
+                {
+                    "label": "Times over 9,500 rpm",
+                    "value": "2",
+                    "usageStatistic": true
+                },
+                {
+                    "label": "Last time over 9,500 rpm",
+                    "value": "At 25,652 mi",
+                    "usageStatistic": true
+                }
+            ],
+            "fscEntitlements": [
+                {
+                    "swid": "0x018F",
+                    "name": "Gearshift assistant",
+                    "detail": "Classic (light) · upgrade 1"
+                },
+                {
+                    "swid": "0x0189",
+                    "name": "Mode button",
+                    "detail": "Classic (light) · upgrade 1"
+                },
+                {
+                    "swid": "0x018B",
+                    "name": "DTC",
+                    "detail": "Classic (light) · upgrade 1"
+                }
+            ],
+            "faults": [
+                {
+                    "code": "3A1460",
+                    "description": "Exhaust flap, right, actuator motor, implausible signal or value",
+                    "status": "active",
+                    "area": "Exhaust flap 1",
+                    "occurred": "P0476 · 42,996 mi · 1× occurrence",
+                    "details": {
+                        "OBD code": "P0476",
+                        "Occurrences": "1",
+                        "Healing counter": "1"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "69.7 °F",
+                                "Engine temperature": "68.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.26 V",
+                                "Time since engine start": "0.0 s",
+                                "Ambient pressure": "14.36 psi",
+                                "Relative air charge": "100.0%",
+                                "Effective injection time, right": "0.00 ms",
+                                "Vehicle speed": "0.0 mph",
+                                "Ignition angle": "0.00°",
+                                "Oxygen sensor voltage, right": "3.34 V",
+                                "Lambda control factor, right": "1.00",
+                                "Lambda control factor, left": "1.00",
+                                "Fuel pressure": "43.00 psi",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "ShiftCam actual position (actuator driver feedback)": "0",
+                                "Lambda adaptation, multiplicative mixture correction, right": "1.00",
+                                "Actual crankshaft torque": "0.0%"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "code": "3A1002",
+                    "description": "Exhaust flap, right, output stage, open circuit",
+                    "status": "active",
+                    "area": "Exhaust flap 1",
+                    "occurred": "P0078 · 42,996 mi · 27× occurrences",
+                    "details": {
+                        "OBD code": "P0078",
+                        "Occurrences": "27",
+                        "Healing counter": "1"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "69.7 °F",
+                                "Engine temperature": "68.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.25 V",
+                                "Time since engine start": "0.0 s",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "Fuel pressure": "42.93 psi",
+                                "Electric fan output stage current at overload trip or undervoltage": "0.0 A",
+                                "System output stage, permitted total current (calculated)": "5.50 A",
+                                "System output stage current at overload trip or undervoltage": "0.0 A",
+                                "Ambient pressure": "14.36 psi",
+                                "Engine temperature (linearized)": "68.5 °F",
+                                "Terminal 15 voltage": "14.24 V",
+                                "Electric fan output stage voltage": "0.01 V",
+                                "System output stage voltage": "14.26 V",
+                                "Vehicle speed": "0.0 mph",
+                                "Engine control module temperature (raw)": "95.0 °F"
+                            }
+                        },
+                        {
+                            "record": "Snapshot 2 · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "69.7 °F",
+                                "Engine temperature": "68.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.25 V",
+                                "Time since engine start": "0.0 s",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "Fuel pressure": "42.93 psi",
+                                "Electric fan output stage current at overload trip or undervoltage": "0.0 A",
+                                "System output stage, permitted total current (calculated)": "1.00 A",
+                                "System output stage current at overload trip or undervoltage": "0.0 A",
+                                "Ambient pressure": "14.36 psi",
+                                "Engine temperature (linearized)": "68.5 °F",
+                                "Terminal 15 voltage": "14.24 V",
+                                "Electric fan output stage voltage": "0.02 V",
+                                "System output stage voltage": "14.25 V",
+                                "Vehicle speed": "0.0 mph",
+                                "Engine control module temperature (raw)": "95.0 °F"
+                            }
+                        },
+                        {
+                            "record": "Snapshot 3 · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "68.3 °F",
+                                "Engine temperature": "67.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.26 V",
+                                "Time since engine start": "0.0 s",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "Fuel pressure": "41.84 psi",
+                                "Electric fan output stage current at overload trip or undervoltage": "0.0 A",
+                                "System output stage, permitted total current (calculated)": "1.00 A",
+                                "System output stage current at overload trip or undervoltage": "0.0 A",
+                                "Ambient pressure": "14.37 psi",
+                                "Engine temperature (linearized)": "67.6 °F",
+                                "Terminal 15 voltage": "14.24 V",
+                                "Electric fan output stage voltage": "0.00 V",
+                                "System output stage voltage": "14.24 V",
+                                "Vehicle speed": "0.0 mph",
+                                "Engine control module temperature (raw)": "96.8 °F"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "code": "3A1312",
+                    "description": "Tip-over sensor, fall detected",
+                    "status": "stored",
+                    "area": "Safety shutdown",
+                    "occurred": "42,525 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "31"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 42,525 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "88.7 °F",
+                                "Engine temperature": "205.7 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "12.38 V",
+                                "Time since engine start": "0.0 s",
+                                "Ambient pressure": "13.23 psi",
+                                "Relative air charge": "92.0%",
+                                "Effective injection time, right": "0.00 ms",
+                                "Vehicle speed": "0.0 mph",
+                                "Ignition angle": "0.00°",
+                                "Oxygen sensor voltage, right": "3.34 V",
+                                "Lambda control factor, right": "0.99",
+                                "Lambda control factor, left": "1.01",
+                                "Fuel pressure": "43.16 psi",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "ShiftCam actual position (actuator driver feedback)": "0",
+                                "Lambda adaptation, multiplicative mixture correction, right": "1.01",
+                                "Actual crankshaft torque": "0.0%"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "code": "3A1000",
+                    "description": "Exhaust flap, right, output stage, short circuit to ground",
+                    "status": "stored",
+                    "area": "Exhaust flap 1",
+                    "occurred": "P0079 · 42,996 mi · 55× occurrences",
+                    "details": {
+                        "OBD code": "P0079",
+                        "Occurrences": "55",
+                        "Healing counter": "1"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "69.7 °F",
+                                "Engine temperature": "68.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.24 V",
+                                "Time since engine start": "0.0 s",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "Fuel pressure": "42.93 psi",
+                                "Electric fan output stage current at overload trip or undervoltage": "0.0 A",
+                                "System output stage, permitted total current (calculated)": "1.00 A",
+                                "System output stage current at overload trip or undervoltage": "0.0 A",
+                                "Ambient pressure": "14.36 psi",
+                                "Engine temperature (linearized)": "68.5 °F",
+                                "Terminal 15 voltage": "14.22 V",
+                                "Electric fan output stage voltage": "0.00 V",
+                                "System output stage voltage": "14.24 V",
+                                "Vehicle speed": "0.0 mph",
+                                "Engine control module temperature (raw)": "95.0 °F"
+                            }
+                        },
+                        {
+                            "record": "Snapshot 2 · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "69.7 °F",
+                                "Engine temperature": "68.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.25 V",
+                                "Time since engine start": "0.0 s",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "Fuel pressure": "42.93 psi",
+                                "Electric fan output stage current at overload trip or undervoltage": "0.0 A",
+                                "System output stage, permitted total current (calculated)": "1.00 A",
+                                "System output stage current at overload trip or undervoltage": "0.0 A",
+                                "Ambient pressure": "14.36 psi",
+                                "Engine temperature (linearized)": "68.5 °F",
+                                "Terminal 15 voltage": "14.23 V",
+                                "Electric fan output stage voltage": "0.01 V",
+                                "System output stage voltage": "14.24 V",
+                                "Vehicle speed": "0.0 mph",
+                                "Engine control module temperature (raw)": "95.0 °F"
+                            }
+                        },
+                        {
+                            "record": "Snapshot 3 · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Throttle grip position": "0.0%",
+                                "Intake air temperature": "68.3 °F",
+                                "Engine temperature": "67.5 °F",
+                                "Gear position sensor voltage, channel 1": "1.04 V",
+                                "Battery voltage": "14.25 V",
+                                "Time since engine start": "0.0 s",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, left, actual lambda": "0.06",
+                                "Fuel pressure": "41.81 psi",
+                                "Electric fan output stage current at overload trip or undervoltage": "0.0 A",
+                                "System output stage, permitted total current (calculated)": "1.00 A",
+                                "System output stage current at overload trip or undervoltage": "0.0 A",
+                                "Ambient pressure": "14.37 psi",
+                                "Engine temperature (linearized)": "67.6 °F",
+                                "Terminal 15 voltage": "14.24 V",
+                                "Electric fan output stage voltage": "0.01 V",
+                                "System output stage voltage": "14.26 V",
+                                "Vehicle speed": "0.0 mph",
+                                "Engine control module temperature (raw)": "96.8 °F"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "code": "3A1C32",
+                    "description": "Oxygen sensor heater, right cylinder, output stage, open circuit",
+                    "status": "stored",
+                    "area": "Upstream oxygen sensor heater 1",
+                    "occurred": "P0030 · 42,996 mi · 1× occurrence",
+                    "details": {
+                        "OBD code": "P0030",
+                        "Occurrences": "1",
+                        "Healing counter": "1"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 42,996 mi",
+                            "readings": {
+                                "Engine speed": "0 rpm",
+                                "Throttle valve angle": "20.5%",
+                                "Engine temperature": "68.5 °F",
+                                "Battery voltage": "14.26 V",
+                                "Time since engine start": "0.0 s",
+                                "Lambda control factor, right": "1.00",
+                                "Lambda adaptation, multiplicative mixture correction, right": "1.00",
+                                "Ignition angle": "0.00°",
+                                "Oxygen sensor, right, actual lambda": "0.06",
+                                "Oxygen sensor, right, ceramic temperature": "-459.7 °F",
+                                "Oxygen sensor, right, lambda offset": "0.00",
+                                "Oxygen sensor, right, connector resistance (calculated)": "0.0 Ω",
+                                "Oxygen sensor, right, APE–MES parallel resistance (calculated)": "316.5 Ω",
+                                "Oxygen sensor, right, ASIC mode (actual)": "1",
+                                "Oxygen sensor, right, requested mode": "1",
+                                "Oxygen sensor heater, right, output stage duty cycle": "0.00",
+                                "Oxygen sensor, right, blackening-protected pump cycles per 10 ms": "0",
+                                "Oxygen sensor, right, measured pump current": "7.88 mA",
+                                "Oxygen sensor, right, measured reference pump current": "1,063.67 µA",
+                                "Exhaust temperature at oxygen sensor, right (modeled)": "31.7 °F",
+                                "Exhaust pipe wall temperature at oxygen sensor, right (modeled)": "31.7 °F",
+                                "Oxygen sensor, right, delay after warm-up until considered hot": "0"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Tire pressure",
+            "controlUnit": "X_RDC-SCHR02 @ 0x20",
+            "status": "Not read",
+            "faultMemoryRead": false,
+            "note": "Fault memory not read: refused (serviceNotSupported)",
+            "values": [
+                {
+                    "label": "Odometer stored",
+                    "value": "42,509 mi"
+                },
+                {
+                    "label": "VIN",
+                    "value": "WB10J9302KZH99940"
+                }
+            ]
+        },
+        {
+            "name": "ABS",
+            "controlUnit": "X_IABS-CONTM100 @ 0x29",
+            "status": "5 active",
+            "faultMemoryRead": true,
+            "values": [
+                {
+                    "label": "Odometer stored",
+                    "value": "42,509 mi"
+                },
+                {
+                    "label": "VIN",
+                    "value": "WB10J9302KZH99940"
+                },
+                {
+                    "label": "Time leaned 60° or more",
+                    "value": "5 min",
+                    "usageStatistic": true
+                }
+            ],
+            "faults": [
+                {
+                    "code": "D3542C",
+                    "description": "CAN message “Sensor box ID1” from sensor box, timeout",
+                    "status": "active",
+                    "area": "CAN bus · Sensor box",
+                    "occurred": "42,996 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "D3542E",
+                    "description": "CAN message “Sensor box ID4” from sensor box, timeout",
+                    "status": "active",
+                    "area": "CAN bus · Sensor box",
+                    "occurred": "42,996 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "D35468",
+                    "description": "CAN message “Sensor box ID7” from sensor box, timeout",
+                    "status": "active",
+                    "area": "CAN bus · Sensor box",
+                    "occurred": "42,996 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "480682",
+                    "description": "HSC (MHG) function deactivated due to external signal fault",
+                    "status": "active",
+                    "area": "Hill Start Control (HSC)",
+                    "occurred": "42,996 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "480904",
+                    "description": "Front wheel speed sensor, electrical fault",
+                    "status": "active",
+                    "area": "Wheel speed sensing, front",
+                    "occurred": "24,861 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Suspension (DSA)",
+            "controlUnit": "X_SAF-CONTI01 @ 0x39",
+            "status": "4 active",
+            "faultMemoryRead": true,
+            "values": [
+                {
+                    "label": "VIN",
+                    "value": "WB10J9302KZH99940"
+                }
+            ],
+            "faults": [
+                {
+                    "code": "480B85",
+                    "description": "Limited operation: CAN bus input signal(s) faulty",
+                    "status": "active",
+                    "occurred": "0 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "D7542C",
+                    "description": "CAN message “Sensor box ID1” from sensor box, timeout",
+                    "status": "active",
+                    "area": "CAN bus · Sensor box",
+                    "occurred": "0 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "D7542E",
+                    "description": "CAN message “Sensor box ID4” from sensor box, timeout",
+                    "status": "active",
+                    "area": "CAN bus · Sensor box",
+                    "occurred": "0 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                },
+                {
+                    "code": "480BBB",
+                    "description": "Ride attitude compensation deactivated, required input signal faulty",
+                    "status": "active",
+                    "area": "CAN bus",
+                    "occurred": "0 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "0"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Keyless ride",
+            "controlUnit": "X_SLZ-ZADI02 @ 0x40",
+            "status": "2 stored",
+            "faultMemoryRead": true,
+            "values": [],
+            "faults": [
+                {
+                    "code": "804014",
+                    "description": "Unknown key ID",
+                    "status": "stored",
+                    "area": "Immobilizer module (EWS)",
+                    "occurred": "41,982 mi · 1× occurrence",
+                    "details": {
+                        "Occurrences": "1",
+                        "Healing counter": "7"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 41,982 mi",
+                            "readings": {
+                                "Battery voltage": "14.3 V"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "code": "80401D",
+                    "description": "Fuel filler switch fault",
+                    "status": "stored",
+                    "area": "Fuel filler cap lock",
+                    "occurred": "37,755–42,441 mi · 2× occurrences",
+                    "details": {
+                        "Occurrences": "2",
+                        "Healing counter": "0"
+                    },
+                    "snapshots": [
+                        {
+                            "record": "First occurrence · 37,755 mi",
+                            "readings": {
+                                "Battery voltage": "13.2 V"
+                            }
+                        },
+                        {
+                            "record": "Latest occurrence · 42,441 mi",
+                            "readings": {
+                                "Battery voltage": "14.3 V"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Instrument cluster",
+            "controlUnit": "X_KOMBI-BKHIGH @ 0x60",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "values": [
+                {
+                    "label": "Odometer",
+                    "value": "42,509 mi"
+                },
+                {
+                    "label": "VIN",
+                    "value": "WB10J9302KZH99940"
+                },
+                {
+                    "label": "Next service in",
+                    "value": "3,853 mi"
+                },
+                {
+                    "label": "Next service due",
+                    "value": "Oct 10, 2027"
+                }
+            ],
+            "faults": []
+        },
+        {
+            "name": "Body controller",
+            "controlUnit": "X_BCL-LEAR01 @ 0x72",
+            "status": "No faults",
+            "faultMemoryRead": true,
+            "values": [
+                {
+                    "label": "VIN",
+                    "value": "WB10J9302KZH99940"
+                }
+            ],
+            "faults": []
+        }
+    ],
+    "options": [
+        {
+            "code": "134",
+            "description": "Adaptive Headlight"
+        },
+        {
+            "code": "18B",
+            "description": "MSR (Dynamic engine brake control)"
+        },
+        {
+            "code": "191",
+            "description": "Dynamic ESA"
+        },
+        {
+            "code": "193",
+            "description": "Keyless Ride"
+        },
+        {
+            "code": "202",
+            "description": "Daytime Riding Light"
+        },
+        {
+            "code": "219",
+            "description": "Headlight Pro"
+        },
+        {
+            "code": "222",
+            "description": "Gear shift assistant Pro"
+        },
+        {
+            "code": "224",
+            "description": "Riding Modes Pro"
+        },
+        {
+            "code": "230",
+            "description": "Comfort package"
+        },
+        {
+            "code": "233",
+            "description": "Touring package"
+        },
+        {
+            "code": "235",
+            "description": "Dynamic package"
+        },
+        {
+            "code": "272",
+            "description": "Preparation for GPS Device"
+        },
+        {
+            "code": "381",
+            "description": "Rider's manual English"
+        },
+        {
+            "code": "413",
+            "description": "Passenger kit"
+        },
+        {
+            "code": "518",
+            "description": "Heated seat"
+        },
+        {
+            "code": "519",
+            "description": "Heated grips"
+        },
+        {
+            "code": "530",
+            "description": "Tire pressure monitor"
+        },
+        {
+            "code": "538",
+            "description": "Cruise Control"
+        },
+        {
+            "code": "56A",
+            "description": "Lights package"
+        },
+        {
+            "code": "589",
+            "description": "Hand protection"
+        },
+        {
+            "code": "5AD",
+            "description": "Cruising Light"
+        },
+        {
+            "code": "5AE",
+            "description": "Multifunctional turn signals"
+        },
+        {
+            "code": "681",
+            "description": "Case holder left + right"
+        }
+    ],
+    "notes": [
+        "Read with VAE Diagwerk for Motorrad v0.4.3 (demo) on Nov 11, 2026, 8:36 AM.",
+        "Usage statistics are pulled from module memory. The values may not reflect the vehicle's total life.",
+        "Values are as the vehicle's control modules reported them when read, as interpreted by VAE's own analysis of their software. VAE doesn't guarantee they are complete or accurate. This report is not a substitute for an inspection by a qualified technician."
+    ]
+}
