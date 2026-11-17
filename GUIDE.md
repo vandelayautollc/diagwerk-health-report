@@ -19,8 +19,9 @@ you need to read it correctly. It is self-contained: you don't need anything els
 through the diagnostic port:
 
 - **VAE Diagwerk for Motorrad** reads BMW Motorrad motorcycles and scooters from model year 2018 on.
-- **VAE Diagwerk for BMW-ENET** reads BMW cars of the F-series generation (and the MINI and Rolls-Royce models built on
-  them) over an ENET (Ethernet) cable.
+- **VAE Diagwerk for BMW-ENET** reads BMW, MINI and Rolls-Royce cars with an ENET (Ethernet) diagnostic port over an
+  ENET cable: the F-series generation (from 2008), the G-series generation (from 2015) and the newest cars (from 2024,
+  the Neue Klasse and the models built on its electrics).
 
 Both apps' **health report** walks every control module on the vehicle and collects each one's fault memory and a few
 other things the module keeps. Both write it in this layout. `app` says which app made the file, and `about` which
@@ -60,6 +61,7 @@ modules[] { name, controlUnit, status, faultMemoryRead, note?, software[]?, valu
   faults[] { code, description?, status, area?, occurred?, details?, snapshots[]? }
 options[] { code, description?, listedBy? }        (only when the vehicle order was read)
 notes[]
+datalog   { about, setupCode, intervalsMs[], modules[] { name, address, values[] } }   (cars; see below)
 ```
 
 A `?` marks a key that is left out when there is nothing to say.
@@ -78,6 +80,7 @@ A `?` marks a key that is left out when there is nothing to say.
 | `modules` | One entry per control module found on the vehicle. The substance of the report. |
 | `options` | The vehicle's option codes. Left out when the vehicle order could not be read. |
 | `notes` | The report's footnotes, as sentences. |
+| `datalog` | What each module can record in the app's Datalog tab, to make a setup code from. Car reports from app versions that have it; last in the file. |
 
 ### `vehicle`
 
@@ -218,6 +221,17 @@ Sentences from the report's footer. Typically: `"Read with <app> on Nov 11, 2026
 use `readAt` for the exact moment); `"VIN mismatch"` when a module holds another VIN; the usage statistics caveat when
 the report has any; and the disclaimer that the values come with no guarantee and don't replace an inspection.
 
+### `datalog`
+
+The car app's **Datalog** tab records live values from the modules into a CSV file. `datalog` lists, per module, the
+values it can record on the software it runs: `{name, address, values[]}`, `address` as hex text (`"0x12"`), each value
+one line such as `"4807* Engine speed (rpm)"` (its DID, `*` for a commonly logged one, its name and unit). These are
+what the car *can* record, not readings: the report holds no live values.
+
+Use it when live data would help: pick values from it and give the person a **setup code** that picks them in the app.
+[SETUP_CODE.md](SETUP_CODE.md) says how to choose values and how to make the code, with a reference implementation. A
+code fits only the car and app version the report came from.
+
 ## How values are written
 
 - **Text with units.** Parse a number out only if you need to calculate; otherwise quote the value as it is.
@@ -282,14 +296,16 @@ you learn about it only from the modules that listen to it.
 
 #### On a car
 
-An F-series car has 15 to 40 modules on several buses (CAN networks, FlexRay, Ethernet), all reached through one
-**central gateway**, the module the diagnostic cable talks to. `name` is BMW's own short name for the module, and
+A car has 15 to 70 modules on several buses (CAN networks, FlexRay, Ethernet), all reached through one **central
+gateway** at address 0x10, the module the diagnostic cable talks to. `name` is BMW's own short name for the module, and
 `controlUnit` names the variant as BMW's workshop software does (`DME8FF_R`, `DSC_25`, `NBTEVO`), then its address.
-The ones you will meet most:
+What an address holds depends on the car's generation (0x40 is the FEM or BDC body controller on an F-series car, the
+BDC on a G-series car, the IPB body computer on the newest cars), so read `name`, not the address. The ones you will
+meet most:
 
 | `name` | What it is |
 | --- | --- |
-| FEM, BDC | Front electronic module or body domain controller: the central gateway (address 0x10), and as a second address the body controller (lights, locking, wipers, power distribution: FEM-B, 0x40). One physical unit. |
+| FEM, BDC, BCP, IPB | The central gateway (address 0x10) and body controller (lights, locking, wipers, power distribution; 0x40): the front electronic module or body domain controller on F- and G-series cars (one physical unit with two addresses), the BCP on some 2021+ cars, the IPB on the newest. |
 | DME, DDE | Engine control, petrol or diesel. DME2: the second bank of a V8 or V12. |
 | EGS | Automatic transmission control. |
 | DSC | Dynamic stability control: ABS, traction and stability control, brake functions. |
@@ -297,7 +313,7 @@ The ones you will meet most:
 | ICM | Integrated chassis management: vehicle dynamics, coordinates DSC, steering and suspension. |
 | ACSM | Crash safety module: airbags and belt tensioners. |
 | KOMBI | Instrument cluster: the dash, Check Control messages, the odometer. |
-| HU | Head unit: navigation, media, phone (NBT, NBT Evo, Entry Nav, CIC). |
+| HU | Head unit: navigation, media, phone (CIC, NBT, NBT Evo, Entry Nav on F-series cars; MGU on G-series; IDC on the newest). |
 | REM, JBBF | Rear electronics or junction box: rear lights, trunk, power distribution. |
 | IHKA | Automatic climate control. |
 | FZD | Roof function center: interior lights, sunroof, emergency call buttons. |
@@ -536,7 +552,8 @@ module's time at steep lean angles.
   Switched off, the values and their note are simply absent. Car reports have none.
 - **Only faults are listed.** Checks that failed at some point since the memory was last cleared without becoming a
   stored fault are shown in the app but are not in the report.
-- **Not in the report at all:** live sensor values, coding and settings, and service history; on a motorcycle, module
+- **Not in the report at all:** live sensor values (a car report's `datalog` lists what can be recorded, not
+  readings), coding and settings, and service history; on a motorcycle, module
   software versions; on a car, the mileage, module VINs and the service countdown.
 - **Descriptions are the app's own wording.** They can differ from the text in BMW's workshop software for the same
   code.
@@ -561,6 +578,8 @@ A way through that works:
 6. **Say what you can't tell.** The report can't show mechanical condition, wear, crash damage, or anything a module
    doesn't monitor. A fault names a circuit or a signal, and the cause can be the component, its connector, the wiring
    or the module.
+7. **Offer a log where it would help** (cars). If live values would settle the question, pick a few from `datalog` and
+   give a setup code, with what to do while it records ([SETUP_CODE.md](SETUP_CODE.md)).
 
 And some cautions:
 

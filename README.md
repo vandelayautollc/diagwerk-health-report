@@ -1,8 +1,8 @@
 # Diagwerk health report format
 
 The **VAE Diagwerk** apps read BMW vehicles through the diagnostic port: **VAE Diagwerk for Motorrad** BMW Motorrad
-motorcycles and scooters, **VAE Diagwerk for BMW-ENET** BMW F-series cars (and the MINI and Rolls-Royce models built on
-them). Their health report (every control module's fault memory with snapshot data, plus option codes, FSC
+motorcycles and scooters, **VAE Diagwerk for BMW-ENET** BMW, MINI and Rolls-Royce cars with an ENET (Ethernet)
+diagnostic port: the F-series, G-series and newer generations. Their health report (every control module's fault memory with snapshot data, plus option codes, FSC
 entitlements, and service data or module software versions) can be exported as a PDF to read or as **JSON to hand to
 an AI assistant**. Both apps write the same layout.
 
@@ -14,6 +14,8 @@ This repository describes that JSON file, so an assistant that has never seen on
 | [schema/health-report-1.schema.json](schema/health-report-1.schema.json) | JSON Schema for `vae-diagwerk-health-report/1`. |
 | [examples/demo-report.json](examples/demo-report.json) | A complete motorcycle report, exported from the Motorrad app's demo mode. |
 | [examples/demo-car-report.json](examples/demo-car-report.json) | A complete car report, exported from the BMW-ENET app's demo mode. |
+| [SETUP_CODE.md](SETUP_CODE.md) | For an assistant: choosing values to log from a car report's `datalog` section and giving the person a **setup code** that picks them in the app's Datalog tab. |
+| [tools/setup_code.py](tools/setup_code.py) | Makes and reads setup codes (Python 3, standard library). The reference implementation. |
 
 ## Using a report with an assistant
 
@@ -33,8 +35,9 @@ the odometer), so don't use it to test an assistant's conclusions, only its read
 with imperial units; a report in metric looks the same with km, °C and bar.
 
 `examples/demo-car-report.json` is the BMW-ENET app's simulated car (a 2017 F30 with a made-up VIN), in metric units:
-active and stored faults, a Check Control message, FSC entitlements in the head unit, each module's software parts
-and the option list. Like the motorcycle's, its values are illustrative, not a vehicle's history.
+active and stored faults, a Check Control message, FSC entitlements in the head unit, each module's software parts,
+the option list, and at the end the `datalog` section: the 1,967 values its modules can record, for a setup code.
+Like the motorcycle's, its values are illustrative, not a vehicle's history.
 
 ## Versions
 
